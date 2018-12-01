@@ -18,3 +18,11 @@ def album_detail(request, artist_id):
 
 	}
 	return render(request, 'music/album.html', context)
+
+
+def song_detail(request, album_id):
+	album = Album.objects.get(pk=album_id)
+	context = {
+		'album': album
+	}
+	return render(request, 'music/detail.html', context)
