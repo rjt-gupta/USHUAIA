@@ -52,3 +52,22 @@ def create_artist(request):
 		"form": form,
 	}
 	return render(request, 'music/create_artist.html', context)
+
+def create_album(request, artist_id):
+
+	form = AlbumForm(request.POST or None)
+
+	if form.is_valid():
+
+		data = form.cleaned_data
+		artist = Artist.objects.get(pk=artist_id)
+		album = artist.album_set.create()
+		album.album_title = data['album_title']
+		album.artist_name = data['artist_name']
+
+		album.save()
+	context = {
+		"form": form
+	}
+
+	return render(request, 'music/create_album.html', context)
