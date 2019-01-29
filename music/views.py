@@ -115,3 +115,11 @@ def delete_song(request, song_id):
 	song.delete()
 
 	return HttpResponse("Deleted Successfully")
+
+def delete_song_playlist(request, play_id):
+
+	playlist = Playlist.objects.get(pk=play_id)
+	print(playlist.play_name)
+	playlist.delete()
+
+	return HttpResponse("Success")
