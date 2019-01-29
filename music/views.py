@@ -35,3 +35,20 @@ def playlist_detail(request):
 		'count': count
 	}
 	return render(request, 'music/playlist.html', context)
+
+def create_artist(request):
+
+	form = ArtistForm(request.POST or None)
+
+	if form.is_valid():
+		data = form.cleaned_data
+		artist = Artist.objects.create()
+		artist.name = data['name']
+		artist.screen_name = data['screen_name']
+
+		artist.save()
+
+	context = {
+		"form": form,
+	}
+	return render(request, 'music/create_artist.html', context)
