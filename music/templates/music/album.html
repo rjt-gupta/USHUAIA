@@ -1,0 +1,44 @@
+{% extends 'music/base.html' %}
+
+{% block body %}
+
+<style>
+table, th, td {
+    border: 2px solid black;
+}
+th, td {
+    padding: 10px;
+}
+th {
+    text-align: center;
+}
+</style>
+<body>
+    <h1>Albums of {{ artist.name }}</h1>
+    <br>
+    <table style="width: 50%;" class="center">
+    <tr>
+        <th><h3>Album Title</h3></th>
+    </tr>
+        {% for i in artist.album_set.all %}
+    <tr>
+        <td><h4><a href="/music/songs/{{i.id}}">{{ i.album_title }}</a></h4>
+            <form action="/music/delete_album/{{ i.id }}" method="post" style="display: inline;" >
+                                {% csrf_token %}
+                                <input type="hidden" name="album_id" value="{{ i.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+        </form>
+        </td>
+
+    </tr>
+    
+    {% endfor %}
+    </table>
+    <br>
+    <a href="/music/create_album/{{ artist.id }}" class="btn btn-primary btn-dark" role="button">ADD ALBUMS</a>
+
+{% endblock %}
+
+</body>
