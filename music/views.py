@@ -26,3 +26,12 @@ def song_detail(request, album_id):
 		'album': album
 	}
 	return render(request, 'music/detail.html', context)
+
+def playlist_detail(request):
+	all_playlist = Playlist.objects.all()
+	count = all_playlist.count()
+	context = {
+		'all_playlist': all_playlist,
+		'count': count
+	}
+	return render(request, 'music/playlist.html', context)
