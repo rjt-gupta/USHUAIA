@@ -131,3 +131,12 @@ def delete_album(request, album_id):
 	album.delete()
 
 	return HttpResponse("Album Deleted..")
+
+def delete_artist(request, artist_id):
+
+	artist = Artist.objects.get(pk=artist_id)
+	print(artist)
+	artist.delete()
+
+	return HttpResponse("Artist Removed from Library..")
+
