@@ -27,6 +27,15 @@ def song_detail(request, album_id):
 	}
 	return render(request, 'music/detail.html', context)
 
+
+def artist_detail(request):
+	all_artist = Artist.objects.all()
+	context = {
+		'all_artist': all_artist
+	}
+	return render(request, 'music/artist.html', context)
+
+
 def playlist_detail(request):
 	all_playlist = Playlist.objects.all()
 	count = all_playlist.count()
@@ -35,6 +44,7 @@ def playlist_detail(request):
 		'count': count
 	}
 	return render(request, 'music/playlist.html', context)
+
 
 def create_artist(request):
 
@@ -52,6 +62,7 @@ def create_artist(request):
 		"form": form,
 	}
 	return render(request, 'music/create_artist.html', context)
+
 
 def create_album(request, artist_id):
 
@@ -72,6 +83,7 @@ def create_album(request, artist_id):
 
 	return render(request, 'music/create_album.html', context)
 
+
 def create_song(request, album_id):
 
 	form = SongForm(request.POST or None)
@@ -91,6 +103,7 @@ def create_song(request, album_id):
 
 	return render(request, 'music/create_song.html', context)
 
+
 def add_to_playlist(request):
 
 	form = PlaylistForm(request.POST or None)
@@ -108,6 +121,7 @@ def add_to_playlist(request):
 	}
 	return render(request, 'music/add_to_playlist.html', context)
 
+
 def delete_song(request, song_id):
 
 	song = Song.objects.get(pk=song_id)
@@ -115,6 +129,7 @@ def delete_song(request, song_id):
 	song.delete()
 
 	return HttpResponse("Deleted Successfully")
+
 
 def delete_song_playlist(request, play_id):
 
@@ -124,6 +139,7 @@ def delete_song_playlist(request, play_id):
 
 	return HttpResponse("Success")
 
+
 def delete_album(request, album_id):
 
 	album = Album.objects.get(pk=album_id)
@@ -131,6 +147,7 @@ def delete_album(request, album_id):
 	album.delete()
 
 	return HttpResponse("Album Deleted..")
+
 
 def delete_artist(request, artist_id):
 
@@ -140,3 +157,20 @@ def delete_artist(request, artist_id):
 
 	return HttpResponse("Artist Removed from Library..")
 
+
+"""
+from django.views import generic
+# By Default Django has generic views to make such things easier and a lot faster
+
+class IndexView(generic.ListView):
+	template_name = 'music/index.html'
+	context_object_name = 'all_albums'  # To change default object_list to our variable name
+
+	def get_queryset(self):
+		return Album.objects.all()
+
+
+class DetailView(generic.DetailView):
+	model = Album
+	template_name = 'music/detail.html'
+"""
