@@ -108,4 +108,10 @@ def add_to_playlist(request):
 	}
 	return render(request, 'music/add_to_playlist.html', context)
 
+def delete_song(request, song_id):
 
+	song = Song.objects.get(pk=song_id)
+	print(song.song_title)
+	song.delete()
+
+	return HttpResponse("Deleted Successfully")
