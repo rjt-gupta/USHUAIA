@@ -1,0 +1,47 @@
+{% extends 'music/base.html' %}
+{% block title %}Artist Details{% endblock %}
+{% block body %}
+
+<style>
+table, th, td {
+    border: 2px solid black;
+}
+th, td {
+    padding: 10px;
+}
+th {
+    text-align: left;
+}
+</style>
+<body>
+
+    <h1>Here are all the Artists</h1>
+    <br>
+    <table style="width:50%">
+    	<tr>
+            <th><h3>Artist Name</h3></th>
+            <th><h3>Screen Name</h3></th>
+  		</tr>
+  		{% for i in all_artist %}
+  		<tr>
+            <td><h4><a href="/music/album/{{i.id}}">{{ i.name }}</a></h4>
+                <form action="/music/delete_artist/{{ i.id }}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="album_id" value="{{ i.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                </form>
+            </td>
+            <td><h3>{{ i.screen_name }}</h3></td>
+    	</tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/music/create_artist" class="btn btn-primary btn-dark" role="button">ADD ARTIST</a>
+    
+
+{%  endblock %}
+
+
+</body>
