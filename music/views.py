@@ -91,3 +91,21 @@ def create_song(request, album_id):
 
 	return render(request, 'music/create_song.html', context)
 
+def add_to_playlist(request):
+
+	form = PlaylistForm(request.POST or None)
+
+	if form.is_valid():
+
+		data = form.cleaned_data
+		new_play = Playlist.objects.create()
+		new_play.play_name = data['play_name']
+
+		new_play.save()
+
+	context = {
+		"form": form
+	}
+	return render(request, 'music/add_to_playlist.html', context)
+
+
