@@ -123,3 +123,11 @@ def delete_song_playlist(request, play_id):
 	playlist.delete()
 
 	return HttpResponse("Success")
+
+def delete_album(request, album_id):
+
+	album = Album.objects.get(pk=album_id)
+	print(album)
+	album.delete()
+
+	return HttpResponse("Album Deleted..")
